@@ -1,0 +1,43 @@
+<div id="main-holder" class="main-holder" style="background-image: url('../../assets/backgrounds/{{backgroundImgPath}}')">
+    <div class="main-flex" *ngIf="weatherData" [ngStyle]="{'width': fullWidthShadow ? '100%' : 'auto'}">
+
+        <span class="topright font_thin">
+            {{(1000 * weatherData.dt + weatherData.timezone) | date :'dd.MM, HH:mm'}}
+            <i (click)="getCurrentWeatherData()"  class="fas fa-redo rotate"></i>
+        </span>
+
+        <span class="topleft font_thin"> <i class="fas fa-map-pin "></i> Wrocław </span>
+
+        <div>
+            <h1 class="temperature">{{weatherData.main.temp| number:'1.0-0'}}°</h1>
+            <h4 style=" margin-top: 0; font-weight: 100;">Odczuwalna: {{weatherData.main.feels_like | number:'1.0-0'}}°</h4>
+        </div>
+
+        <div class="grid-header">
+            <div class="weather-details-container--flex-end">
+                <span>{{weatherData.clouds.all}}%<i class="wi wi-cloud"></i> </span>
+                <span>{{weatherData.main.humidity}}%<i class="wi wi-humidity"></i></span>
+                <span>{{weatherData.main.pressure}} hPa<i class="wi wi-barometer "></i></span>
+            </div>
+            <img class="grid-middle" src="../../assets/icons/{{weatherData.weather[0].icon}}.png">
+            <div class="weather-details-container--flex-start">
+                <span> <i class="wi wi-thermometer"></i>{{weatherData.main.temp_max | number:'1.0-0'}}°</span>
+                <span> <i class="wi wi-thermometer-exterior"></i>{{weatherData.main.temp_min | number:'1.0-0'}}°</span>
+                <span> <i class="wi wi-strong-wind"></i>{{weatherData.wind.speed}} m/s</span>
+            </div>
+        </div>
+
+        <h1 *ngIf="showForecastDays == 0">{{weatherData.weather[0].description | titlecase }}</h1>
+
+        <div class="forecast-container" *ngIf="forecastWeatherData">
+            <div *ngFor="let forecast of forecastWeatherData.daily | slice:0:showForecastDays" class="one-day-forecast">
+                <h1>{{forecast.temp.day | number:'1.0-0'}}°</h1>
+                <img src="../../assets/icons/{{forecast.weather[0].icon}}.png" >
+                <h2>{{(1000 * forecast.dt + forecastWeatherData.timezone_offset) | date :'dd.MM'}}</h2>
+            </div>
+        </div>
+
+    </div>
+    
+    <mat-spinner *ngIf="!weatherData"></mat-spinner>
+</div>

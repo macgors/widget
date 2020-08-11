@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700');
+body, html {
+  font-family: 'Roboto';
+  }
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body{
+  background-image: url(./assets/double-bubble-outline.png);
+}
+
+// @media screen and (min-width: 1000px) {
+//   html {
+//     font-size: calc(16px + 2 * ((100vw - 320px) / 680));
+//   }
+// }
