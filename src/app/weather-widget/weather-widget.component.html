@@ -2,7 +2,7 @@
     <div class="main-flex" [ngStyle]="{'width': fullWidthShadow ? '100%' : 'auto'}">
 
         <span class="topright font_thin">
-            {{(1000 * weatherData.dt + weatherData.timezone) | date :'dd.MM, HH:mm'}}
+            {{updateTime | date :'dd.MM, HH:mm'}}
             <i (click)="getCurrentWeatherData()"  class="fas fa-redo rotate"></i>
         </span>
 

@@ -17,6 +17,7 @@
 .rotate:active {
     transform: rotate(0deg);
     transition: 0s;
+
 }
 
 .main-holder {
@@ -64,6 +65,7 @@
         width: 100% !important;
     }
 }
+
 
 h1,
 h2,
@@ -175,9 +177,11 @@ span {
 
 .mat-spinner {
     margin: 0 auto;
-    :host{
+
+    :host {
         text-align: center;
     }
+
     ::ng-deep circle {
         stroke: #eb6e4b;
     }
@@ -190,7 +194,7 @@ span {
     @include main-width;
     display: flex;
     flex-direction: row;
-    justify-content: space-ar;
+    justify-content: space-around;
 
 }
 
@@ -221,4 +225,3 @@ span {
     margin-bottom: 1%;
 
 }
-
