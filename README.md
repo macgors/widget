@@ -3,6 +3,7 @@
 Widżet pogodowy stworzony jako zadanie rekrutacyjne.
 Udpostępniony na: https://weather-widget-task.web.app/
 
+Zdjęcia wykonane przez i wykorzystane za zgodą https://www.flickr.com/photos/bartor
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
