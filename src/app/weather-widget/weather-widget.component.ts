@@ -19,11 +19,13 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy, OnChanges {
   forecastWeatherData: ForecastWeatherData;
   private weatherDataTimer: number; // ID of th schduled timer, so we can cancel it on destroy
   backgroundImgPath: string;
+  apiError = false;
 
   constructor(private weaterApiService: WeatherApiService) { }
 
   ngOnInit(): void {
-    this.getCurrentWeatherData(5 * 60 * 1000);
+    this.getCurrentWeatherData();
+    this.weatherDataTimer = setInterval(() => this.getCurrentWeatherData(), 5 * 60 * 1000);
     if (this.showForecastDays > 0) { this.getForecastData(); }
   }
 
@@ -35,23 +37,21 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy, OnChanges {
     if (this.providedBackgroundPath) { this.backgroundImgPath = this.providedBackgroundPath; }
   }
 
- /**
-  * @param scheduleTime if this argument is provided, the funtion will recursivly
-  * call itself again in scheduleNextTime miliseconds with the same argument
-  */
-  getCurrentWeatherData(scheduleTime?: number): void {
+  getCurrentWeatherData(): void {
     this.weaterApiService.getCurrentWeatherData().subscribe((data: WeatherData) => {
       this.weatherData = data;
       this.backgroundImgPath = this.getBackgroundImgPath(data);
-      if (scheduleTime) {
-        this.weatherDataTimer = setTimeout(() => this.getCurrentWeatherData(scheduleTime), scheduleTime);
-      }
+    },
+    (error) => {
+      this.apiError = true;
     });
   }
 
   getForecastData(): void{
-    this.weaterApiService.getForecastData(5).subscribe((data: ForecastWeatherData) => {
+    this.weaterApiService.getForecastData().subscribe((data: ForecastWeatherData) => {
       this.forecastWeatherData = data;
+    }, (error) => {
+      this.apiError = true;
     });
   }
 

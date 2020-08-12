@@ -1,11 +1,21 @@
 <div class='presentation-holder'>
-    
-    <app-weather-widget style="height: 500px; width: 420px;"></app-weather-widget>
+    <h1>Maciej Górski, widżet pogodowy</h1>
+    <app-weather-widget [providedBackgroundPath]="'day/2.jpg'" style="height: 500px; width: 420px;"></app-weather-widget>
+    <hr>
+    Poniżej: app-weather-widget o domyślnych parametrach.
     <app-weather-widget class="widget"></app-weather-widget>
+    Widget z podanym przez @Input parametrem odpowiadajacym za pełną szerokość szarego tła.
     <app-weather-widget [fullWidthShadow]="true" class="widget"></app-weather-widget>
+    Można podać przez @Input również parametr liczby dni, dla których ma zostać wyświetlona prognoza.
     <app-weather-widget [showForecastDays]="5" [fullWidthShadow]="true" class="widget"></app-weather-widget>
     <app-weather-widget [showForecastDays]="4"  class="widget"></app-weather-widget>
+    Poniżej przedstawione zapewnione domyślnie zdjęcia, wykonane we Wrocławiu. Zdjęcie w tle zmienia się automatycznie w zależności od pory i dnia.
+    <ng-container *ngFor="let path of backgroundPaths">
+        <app-weather-widget [providedBackgroundPath]="path" [fullWidthShadow]="true" class="widget"></app-weather-widget>
+    </ng-container>
+    Zdjęcia zmieniają się również w przypadku niektórych warunków atmosferycznych jak np. opady śniegu
+    <app-weather-widget [providedBackgroundPath]="'snow.jpg'"  class="widget"></app-weather-widget>
+    czy ujemne temeratury
+    <app-weather-widget [providedBackgroundPath]="'ice.jpg'" class="widget"></app-weather-widget>
     
-
-
 </div>

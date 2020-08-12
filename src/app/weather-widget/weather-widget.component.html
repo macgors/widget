@@ -1,5 +1,5 @@
-<div id="main-holder" class="main-holder" style="background-image: url('../../assets/backgrounds/{{backgroundImgPath}}')">
-    <div class="main-flex" *ngIf="weatherData" [ngStyle]="{'width': fullWidthShadow ? '100%' : 'auto'}">
+<div *ngIf="backgroundImgPath && weatherData" class="main-holder" style="background-image: url('../../assets/backgrounds/{{backgroundImgPath}}')">
+    <div class="main-flex" [ngStyle]="{'width': fullWidthShadow ? '100%' : 'auto'}">
 
         <span class="topright font_thin">
             {{(1000 * weatherData.dt + weatherData.timezone) | date :'dd.MM, HH:mm'}}
@@ -39,5 +39,7 @@
 
     </div>
     
-    <mat-spinner *ngIf="!weatherData"></mat-spinner>
 </div>
+
+<mat-spinner *ngIf="!weatherData && !apiError"></mat-spinner>
+<h1 *ngIf="!weatherData && apiError"> Błąd pobierania danych pogodowych  <i (click)="getCurrentWeatherData()"  class="fas fa-redo rotate"></i> </h1>
