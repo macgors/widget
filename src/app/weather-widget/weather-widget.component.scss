@@ -174,8 +174,10 @@ span {
 }
 
 .mat-spinner {
-    position: absolute;
-
+    margin: 0 auto;
+    :host{
+        text-align: center;
+    }
     ::ng-deep circle {
         stroke: #eb6e4b;
     }
@@ -219,3 +221,4 @@ span {
     margin-bottom: 1%;
 
 }
+
