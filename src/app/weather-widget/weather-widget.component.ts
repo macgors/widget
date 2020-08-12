@@ -1,7 +1,6 @@
 import { WeatherData, ForecastWeatherData } from './../weather-model';
 import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { WeatherApiService } from '../weather-api.service';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @Component({
@@ -17,11 +16,11 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
   weatherData: WeatherData;
   forecastWeatherData: ForecastWeatherData;
-  private weatherDataTimer: number; // ID of th schduled timer, so we can cancel it on destroy
+  private weatherDataTimer: number; // ID of the scheduled timer, so we can cancel it on destroy
   backgroundImgPath: string;
   apiError = false;
 
-  constructor(private weaterApiService: WeatherApiService) { }
+  constructor(private weatherApiService: WeatherApiService) { }
 
   ngOnInit(): void {
     this.getCurrentWeatherData();
@@ -33,12 +32,13 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy, OnChanges {
     // Break recursion timer
     clearTimeout(this.weatherDataTimer);
   }
+
   ngOnChanges(): void {
     if (this.providedBackgroundPath) { this.backgroundImgPath = this.providedBackgroundPath; }
   }
 
   getCurrentWeatherData(): void {
-    this.weaterApiService.getCurrentWeatherData().subscribe((data: WeatherData) => {
+    this.weatherApiService.getCurrentWeatherData().subscribe((data: WeatherData) => {
       this.weatherData = data;
       this.backgroundImgPath = this.getBackgroundImgPath(data);
     },
@@ -48,7 +48,7 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getForecastData(): void{
-    this.weaterApiService.getForecastData().subscribe((data: ForecastWeatherData) => {
+    this.weatherApiService.getForecastData().subscribe((data: ForecastWeatherData) => {
       this.forecastWeatherData = data;
     }, (error) => {
       this.apiError = true;
@@ -57,7 +57,7 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy, OnChanges {
 
  /**
   * Function to get background asset according with day time and/or weather.
-  * Ideally, this would be delt with by the back-end, and we would just get an image.
+  * Ideally, this would be dealt with by the back-end, and we would just get an image.
   */
   getBackgroundImgPath(weatherData: WeatherData): string{
 
@@ -71,7 +71,7 @@ export class WeatherWidgetComponent implements OnInit, OnDestroy, OnChanges {
     if (weatherIconID === '13d') { return 'snow.jpg'; }
     if (weatherData.main.temp < 0) { return 'ice.jpg'; }
 
-    // time realative backgrounds
+    // time-related backgrounds
     if (date.getHours() >= 7 && date.getHours() <= 9){ return `morning/${photoDay}.jpg`; }
     if (weatherIconID.endsWith('n')){ return `night/${photoDay}.jpg`; }
     return `day/${photoDay}.jpg`;
